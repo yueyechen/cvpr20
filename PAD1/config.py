@@ -5,19 +5,14 @@ from torchvision import transforms as trans
 
 def get_config(training = True):
     conf = edict()
-    # conf.data_path = Path('/home2/xuejiachen/data/huoti')
-    # conf.huoti_folder = conf.data_path/'new'
-    # conf.train_list = '/home2/xuejiachen/data/huoti/train_list_new.txt'
-    conf.data_path = Path('/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1')
-    # conf.data_path = Path('/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-SURF')
+    conf.data_path = Path('/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1')
     conf.huoti_folder = conf.data_path
-    conf.train_list = '/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/4@3_train_new.txt'
+    conf.train_list = '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/4@3_train_new.txt'
 
-    conf.work_path = Path('/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/cvpr20/work_space/')
-    # conf.model_path = conf.work_path/'models'
+    conf.work_path = Path('/home/users/jiachen.xue/anti_spoofing/data/cvpr20/work_space/')
     conf.log_path = conf.work_path/'log'
     conf.save_path = conf.work_path/'save'
-    conf.val_list = '/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/4@3_dev_img_res_label_new.txt'
+    conf.val_list = '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/4@3_dev_img_res_label_new.txt'
     conf.batch_size = 128
     conf.exp = '0213_res18_00_rgb_06_4@3'
 

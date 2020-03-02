@@ -9,14 +9,14 @@ from torchvision import transforms as trans
 def parse_args():
     parser = argparse.ArgumentParser(description='for face verification')
     parser.add_argument('--exp', help='training epochs', default='try', required=False, type=str)
-    parser.add_argument('--train_list', help='the decay group of learning rate', default='/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/4@3_train_new.txt', required=False, type=str)
-    parser.add_argument('--val_list', help='the decay group of learning rate', default='/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/4@3_dev_img_res_label_new.txt', required=False, type=str)
+    parser.add_argument('--train_list', help='the decay group of learning rate', default='/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/4@3_train_new.txt', required=False, type=str)
+    parser.add_argument('--val_list', help='the decay group of learning rate', default='/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/4@3_dev_img_res_label_new.txt', required=False, type=str)
     parser.add_argument('--format', help='training epochs', default='rgb', required=False, type=str)
     parser.add_argument('--epochs', help='training epochs', default=25, required=False, type=int)
     parser.add_argument('--milestones', help='the decay group of learning rate', default=[10,15,20], required=False, nargs='+', type=int)
     # parser.add_argument('--milestones', help='the decay group of learning rate', default=[80,120,160], required=False, nargs='+', type=int)
-    parser.add_argument('--data_path', help='the decay group of learning rate', default=Path('/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1'), required=False, type=Path)
-    parser.add_argument('--huoti_folder', help='the decay group of learning rate', default=Path('/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1'), required=False, type=Path)
+    parser.add_argument('--data_path', help='the decay group of learning rate', default=Path('/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1'), required=False, type=Path)
+    parser.add_argument('--huoti_folder', help='the decay group of learning rate', default=Path('/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1'), required=False, type=Path)
     parser.add_argument('--batch_size', help='batch size', default=128, required=False, type=int)
     parser.add_argument('--input_size', help='input size', default=[128, 128], required=False, type=int)
     parser.add_argument('--random_offset', help='input size', default=[16, 16], required=False, type=int)
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     # exp_sequence = ['4@1']
     format_sequence = ['rgb']
 
-    conf.data_path = Path('/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1')
+    conf.data_path = Path('/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1')
     conf.huoti_foldfer = conf.data_path
 
     conf.batch_size = 128
@@ -84,9 +84,9 @@ if __name__ == '__main__':
         conf.train.format = format
         conf.eval.format = format
         for exp_id in exp_sequence:
-            conf.train_list = '/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_train_frame_v5.txt'.format(
+            conf.train_list = '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_train_frame_v5.txt'.format(
                 exp_id)
-            conf.val_list = '/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_dev_frame_v5.txt'.format(
+            conf.val_list = '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_dev_frame_v5.txt'.format(
                 exp_id)
             conf.exp = 'res18_se_mish_{}_06_reg00_rect00_{}'.format(format, exp_id)
 

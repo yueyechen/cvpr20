@@ -10,7 +10,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description='for face verification')
     parser.add_argument('--exp', help='training epochs', default='try', required=False, type=str)
     parser.add_argument('--val_list', help='the decay group of learning rate',
-                        default='/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/4@3_dev_img_res_label_new.txt',
+                        default='/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/4@3_dev_img_res_label_new.txt',
                         required=False, type=str)
     parser.add_argument('--model_path', help='the decay group of learning rate',
                         default='/home/users/jiachen.xue/PAD_Pytorch/work_space/save/0213_res18_00_rgb_05_4@3/epoch=24.pth',
@@ -26,10 +26,10 @@ def parse_args():
     # parser.add_argument('--milestones', help='the decay group of learning rate', default=[10, 15, 20], required=False,
     #                     type=list)
     parser.add_argument('--data_path', help='the decay group of learning rate', default=Path(
-        '/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1'), required=False,
+        '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1'), required=False,
                         type=Path)
     parser.add_argument('--huoti_folder', help='the decay group of learning rate', default=Path(
-        '/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1'), required=False,
+        '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1'), required=False,
                         type=Path)
     parser.add_argument('--batch_size', help='batch size', default=128, required=False, type=int)
     parser.add_argument('--input_size', help='input size', default=[128, 128], required=False, type=list)
@@ -57,9 +57,9 @@ if __name__ == '__main__':
     format_sequence = ['rgb']
     epoch_range = range(8, 13)
 
-    conf.data_path = Path('/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1')
+    conf.data_path = Path('/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1')
     conf.huoti_folder = conf.data_path
-    conf.result_path = '/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/cvpr20/work_space/result'
+    conf.result_path = '/home/users/jiachen.xue/anti_spoofing/data/cvpr20/work_space/result'
     # conf.result_name = 'dev.txt'
 
     conf.batch_size = 400
@@ -101,12 +101,12 @@ if __name__ == '__main__':
         for exp_id in exp_sequence:
             conf.exp = 'res101_{}_06_reg00_rect00_{}'.format(format, exp_id)
             for epoch in epoch_range:
-                conf.model_path = os.path.join('/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/cvpr20/work_space/save',
+                conf.model_path = os.path.join('/home/users/jiachen.xue/anti_spoofing/data/cvpr20/work_space/save',
                                                conf.exp,
                                                'epoch={}.pth'.format(epoch))
                 for test_type in ['dev_frame', 'test_frame']:
                 # for test_type in ['train_frame']:
-                    conf.val_list = os.path.join('/mnt/cephfs/smartauto/users/guoli.wang/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_{}_v5.txt'.format(exp_id, test_type))
+                    conf.val_list = os.path.join('/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_{}_v5.txt'.format(exp_id, test_type))
                     conf.result_name = '{}_{}_e{}.txt'.format(exp_id, test_type, epoch)
 
                     learner = face_learner(conf, inference=True)
