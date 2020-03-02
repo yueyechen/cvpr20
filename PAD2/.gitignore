@@ -1,0 +1,25 @@
+# Python:
+*.py[cod]
+*.egg
+*.egg-info
+
+# vscode
+.vscode
+*.code-workspace
+
+# pycharm
+.idea
+
+# TEMP
+tmp
+job.sh
+*.txt
+snapshots
+submit
+brush_res
+
+# 3rdparty
+mxnet
+mxnet-nnvm
+site-packages
+
