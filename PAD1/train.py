@@ -74,9 +74,9 @@ if __name__ == '__main__':
                 conf.model.format = 'res101'
             else:
                 raise ValueError
-            conf.train_list = '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_train_frame_v5.txt'.format(
+            conf.train_list = '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_train_frame_v2.txt'.format(
                 exp_id)
-            conf.val_list = '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_dev_frame_v5.txt'.format(
+            conf.val_list = '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_dev_frame_v2.txt'.format(
                 exp_id)
             conf.exp = '{}_{}_06_reg00_rect00_{}'.format(conf.model.format, format, exp_id)
 
