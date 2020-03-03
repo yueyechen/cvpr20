@@ -33,24 +33,14 @@ if __name__ == '__main__':
     conf = get_config()
 
     conf.train.transform = trans.Compose([
-        # trans.Resize([conf.model.input_size[0] + 6, conf.model.input_size[1] + 6]),
-        # trans.RandomCrop(conf.model.input_size),
-        # trans.RandomHorizontalFlip(),
         # trans.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3, hue=(-0.1, 0.1)),
         trans.ToTensor(),
         trans.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
     ])
-    # conf.eval.transform = trans.Compose([
-    #     # trans.Resize(conf.model.input_size),
-    #     trans.ToTensor(),
-    #     trans.Normalize([0.5], [0.5])
-    # ])
 
 
-    exp_sequence = ['4@2','4@1', '4@3']
-    # format_sequence = ['rgb', 'depth', 'nir']
+    exp_sequence = ['4@1', '4@2', '4@3']
 
-    # exp_sequence = ['4@1']
     format_sequence = ['rgb']
 
     conf.data_path = Path('/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1')
@@ -60,17 +50,11 @@ if __name__ == '__main__':
     conf.model.input_size = [336, 336]
     conf.model.random_offset = [48, 48]
     conf.model.embedding_size = 512
-    conf.model.drop_out = 0.7
-    conf.model.use_senet = False
-    conf.model.se_reduction = 16
 
-    # conf.train.epochs = 200
-    # conf.train.milestones = [80, 120, 160]
     conf.train.epochs = 20
     conf.train.milestones = [8, 12, 16]
     conf.train.sampling = False
     conf.train.sampling_neg = 4
-    # conf.train.rectified = True
 
     conf.eval.input_size = [336, 336]
     conf.eval.random_offset = [48, 48]
@@ -84,45 +68,18 @@ if __name__ == '__main__':
         conf.train.format = format
         conf.eval.format = format
         for exp_id in exp_sequence:
+            if exp_id == '4@1':
+                conf.model.format = 'res50'
+            elif exp_id in ['4@2', '4@3']:
+                conf.model.format = 'res101'
+            else:
+                raise ValueError
             conf.train_list = '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_train_frame_v5.txt'.format(
                 exp_id)
             conf.val_list = '/home/users/jiachen.xue/anti_spoofing/data/CASIA-CeFA/phase1/{}_dev_frame_v5.txt'.format(
                 exp_id)
-            conf.exp = 'res18_se_mish_{}_06_reg00_rect00_{}'.format(format, exp_id)
+            conf.exp = '{}_{}_06_reg00_rect00_{}'.format(conf.model.format, format, exp_id)
 
             learner = face_learner(conf)
             learner.train(conf, conf.train.epochs)
             del learner
-
-
-
-    # conf.exp = args.exp
-    # conf.train_list = args.train_list
-    # conf.val_list = args.val_list
-    # conf.data_folder = args.data_path
-    # conf.huoti_folder = args.huoti_folder
-    #
-    # conf.train.format = args.format
-    # conf.eval.format = args.format
-    #
-    # conf.train.milestones = args.milestones
-    # conf.batch_size = args.batch_size
-    # conf.model.input_size = args.input_size
-    # conf.model.random_offset = args.random_offset
-    # conf.model.embedding_size = args.embedding_size
-    # conf.model.drop_out = args.drop_out
-    # conf.model.use_senet = args.use_senet
-    # conf.model.se_reduction = args.se_reduction
-    #
-    # conf.eval.input_size = args.input_size
-    # conf.eval.random_offset = args.random_offset
-
-    # conf.weight_ment = args.weight_ment
-    # conf.train.milestones = args.milestones
-    # conf.model.half_face = False
-    # conf.model.use_senet = True
-    # conf.train.milestones = [80,120,160]
-
-    # learner = face_learner(conf)
-
-    # learner.train(conf, args.epochs)
