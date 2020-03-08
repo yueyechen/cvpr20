@@ -2,8 +2,7 @@ import torch
 from torch.utils.data import DataLoader
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
-from my_dataset import MyDataset_huoti_val_patch, MyDataset_huoti_train_rectified, MyDataset_huoti_val_rectified,\
-    MyDataset_huoti_val_patch_rectified, MyDataset_huoti_test_rectified
+from my_dataset import MyDataset_huoti_val_patch, MyDataset_huoti_train_rectified, MyDataset_huoti_val_rectified, MyDataset_huoti_test_rectified
 
 
 def de_preprocess(tensor):

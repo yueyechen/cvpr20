@@ -245,10 +245,7 @@ class MyDataset_huoti_train_rectified(Dataset):
         self.imgs = imgs
         self.transform = conf.train.transform
         self.target_transform = target_transform
-        if conf.model.half_face:
-            self.loader = default_loader_half
-        else:
-            self.loader = loader
+        self.loader = loader
         self.root = conf.huoti_folder
         self.input_size = conf.model.input_size
         self.random_offset = conf.model.random_offset
@@ -315,36 +312,33 @@ class MyDataset_huoti_val_rectified(Dataset):
             for line in fh:
                 data = line.strip().split()
                 rgb_name = data[0]
-                label = float(data[-1])
                 rect = [int(float(x)) for x in data[1:5]]
                 if (np.array(rect) == -1).any():
                     continue
                 self.counter += 1
-                imgs.append((rgb_name, label))
+                imgs.append(rgb_name)
                 self.rects.append(rect)
         elif conf.eval.format == 'depth':
             for line in fh:
                 data = line.strip().split()
                 depth_name = data[5]
-                label = float(data[-1])
                 rect = [int(float(x)) for x in data[6:10]]
                 if (np.array(rect) == -1).any():
                     continue
                 self.counter += 1
-                imgs.append((depth_name, label))
+                imgs.append(depth_name)
                 self.rects.append(rect)
         elif conf.eval.format == 'nir':
             for line in fh:
                 data = line.strip().split()
                 # nir_name = data[10]
                 nir_name = data[6]
-                label = float(data[-1])
                 # rect = [int(float(x)) for x in data[11:15]]
                 rect = [int(float(x)) for x in data[7:11]]
                 if (np.array(rect) == -1).any():
                     continue
                 self.counter += 1
-                imgs.append((nir_name, label))
+                imgs.append(nir_name)
                 self.rects.append(rect)
         else:
             raise ValueError
@@ -352,10 +346,7 @@ class MyDataset_huoti_val_rectified(Dataset):
         self.imgs = imgs
         self.transform = conf.eval.transform
         self.target_transform = target_transform
-        if conf.model.half_face:
-            self.loader = default_loader_half
-        else:
-            self.loader = loader
+        self.loader = loader
         self.root = conf.huoti_folder
         self.input_size = conf.eval.input_size
         self.random_offset = conf.eval.random_offset
@@ -363,7 +354,7 @@ class MyDataset_huoti_val_rectified(Dataset):
 
     def __getitem__(self, index):
         # =========== rect00 ====================
-        fn1, label = self.imgs[index]
+        fn1= self.imgs[index]
         img1 = self.loader(os.path.join(str(self.root), fn1))
         rect = self.rects[index]
         rect_w = rect[2] - rect[0]
@@ -397,10 +388,8 @@ class MyDataset_huoti_val_rectified(Dataset):
 
         if self.transform is not None:
             img1 = self.transform(img1)
-        if self.target_transform is not None:
-            label = self.target_transform(label)
 
-        return [img1], label, [fn1]
+        return [img1], [fn1]
 
     def __len__(self):
         return self.counter
@@ -449,10 +438,7 @@ class MyDataset_huoti_test_rectified(Dataset):
         self.imgs = imgs
         self.transform = conf.eval.transform
         self.target_transform = target_transform
-        if conf.model.half_face:
-            self.loader = default_loader_half
-        else:
-            self.loader = loader
+        self.loader = loader
         self.root = conf.huoti_folder
         self.input_size = conf.eval.input_size
         self.random_offset = conf.eval.random_offset
